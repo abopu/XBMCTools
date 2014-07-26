@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component LANGUAGE_LEVEL="JDK_1_7" jdk="JavaSE-1.7" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="log4j-api-2.0.jar" scope="COMPILE">
+		<srcroot url="jar://$MODULE_DIR$/../../../002 Libraries/Java/log4j/log4j-api-2.0-sources.jar!/"/>
+	</lib>
+	<lib name="sqlite-jdbc-3.7.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../XBMCTools/lib/sqlite-jdbc-3.7.2.jar!/"/>
+	</lib>
+</component>
