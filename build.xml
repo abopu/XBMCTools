@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project name="XBMC Tools" basedir="." default="jar">
+
+	<property file="build.properties" />
+	
+	<presetdef name="javac">
+		<javac includeantruntime="false" />
+	</presetdef>
+	
+	<path id="xbmctools.build.classpath">
+	  <fileset id="xbmctools.libs" dir="${xbmctools.lib.dir}">
+	    <include name="**/*.jar"/>
+	  </fileset>
+	</path>
+
+	<!-- 
+	  Here are references to other project folders that are referenced to in this build file.
+	-->
+	<property name="util.basedir" value="../com.abopu.util/" />
+	<property file="${util.basedir}/build.properties" />
+
+	<target name="build-deps" description="Build and package into a jar all other projects that this project depends upon.">
+		<mkdir dir="${util.lib.dir}" />
+		<property file="${util.basedir}/ant.properties" />
+		<ant antfile="${util.basedir}/build.xml" target="jar" inheritAll="false" useNativeBasedir="true" />
+		<copy file="${util.jar.path}" todir="${xbmctools.lib.dir}" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${xbmctools.build.dir}" />
+	</target>
+
+	<target name="compile">
+		<echo>Compiling ${ant.project.name}...</echo>
+		<mkdir dir="${xbmctools.build.dir}/classes" />
+		<javac srcdir="${xbmctools.src.dir}" destdir="${xbmctools.build.dir}/classes">
+	    <classpath refid="xbmctools.build.classpath" />
+		</javac>
+	</target>
+
+	<target name="jar" depends="build-deps,compile" description="Package the source files and compiled classes into a jar file for distribution and re-use.">
+		<echo>Packaging ${xbmctools.jar.name}</echo>
+		<mkdir dir="${xbmctools.jar.dir}" />
+		<jar destfile="${xbmctools.jar.dir}/${xbmctools.jar.name}">
+			<fileset dir="${xbmctools.build.dir}/classes" />
+			<fileset dir="${xbmctools.src.dir}" includes="**/*.java" />
+		</jar>
+	</target>
+</project>
